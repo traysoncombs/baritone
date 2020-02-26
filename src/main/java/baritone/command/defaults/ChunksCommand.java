@@ -52,16 +52,16 @@ public class TunnelCommand extends Command {
 
     @Override
     public String getShortDesc() {
-        return "Set a goal to tunnel in your current direction";
+        return "Explore chunks between two cornwer chunks.";
     }
 
     @Override
     public List<String> getLongDesc() {
         return Arrays.asList(
-                "The tunnel command sets a goal that tells Baritone to mine completely straight in the direction that you're facing.",
+                "The chunks command",
                 "",
                 "Usage:",
-                "> tunnel"
+                "> chunks [x coord for first chunk] [z coord for first chunk] [x coord for second chunk] [z coord for second chunk]"
         );
     }
 }
