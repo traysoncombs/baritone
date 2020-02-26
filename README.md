@@ -29,7 +29,8 @@
 [![forthebadge](https://forthebadge.com/images/badges/built-with-swag.svg)](http://forthebadge.com/)
 [![forthebadge](https://forthebadge.com/images/badges/mom-made-pizza-rolls.svg)](http://forthebadge.com/)
 
-A Minecraft pathfinder bot. 
+A Minecraft pathfinder bot.
+
 
 Baritone is the pathfinding system used in [Impact](https://impactclient.net/) since 4.4. There's a [showcase video](https://youtu.be/CZkLXWo4Fg4) made by @Adovin#0730 on Baritone which I recommend. [Here's](https://www.youtube.com/watch?v=StquF69-_wI) a (very old!) video I made showing off what it can do.
 
@@ -43,6 +44,11 @@ the original version of the bot for Minecraft 1.8.9, rebuilt for 1.12.2 through 
 Have committed at least once a day from Aug 1 2018 to Aug 1 2019.
 
 1Leijurv3DWTrGAfmmiTphjhXLvQiHg7K2
+
+# Additions in this fork
+
+A new command: chunks
+Basically this takes the x and z coordinates for two chunks and autowalks within that area, this is for world downloads. This is different from explore because instead of just walking through loaded chunks to get to the unloaded one, it walks through all unloaded chunks allowing more to be downloaded.
 
 # Getting Started
 
