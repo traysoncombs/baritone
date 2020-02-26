@@ -31,11 +31,15 @@ public class GoalStrictDirection implements Goal {
     public final int z;
     public final int dx;
     public final int dz;
+    private final int xGoal;
+    private final int zGoal;
 
-    public GoalStrictDirection(BlockPos origin, EnumFacing direction) {
+    public GoalStrictDirection(BlockPos origin, EnumFacing direction, int xGoal, int zGoal) {
         x = origin.getX();
         y = origin.getY();
         z = origin.getZ();
+        this.xGoal = xGoal;
+        this.zGoal = zGoal;
         dx = direction.getXOffset();
         dz = direction.getZOffset();
         if (dx == 0 && dz == 0) {
@@ -45,7 +49,7 @@ public class GoalStrictDirection implements Goal {
 
     @Override
     public boolean isInGoal(int x, int y, int z) {
-        return false;
+        return this.xGoal == x && this.zGoal == z;
     }
 
     @Override
