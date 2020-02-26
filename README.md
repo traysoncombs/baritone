@@ -48,7 +48,10 @@ Have committed at least once a day from Aug 1 2018 to Aug 1 2019.
 # Additions in this fork
 
 A new command: chunks
+
 Basically this takes the x and z coordinates for two chunks and autowalks within that area, this is for world downloads. This is different from explore because instead of just walking through loaded chunks to get to the unloaded one, it walks through all unloaded chunks allowing more to be downloaded.
+
+Slightly changed Strict direction goals, so that there pathing can stop after making it to a goal
 
 # Getting Started
 
