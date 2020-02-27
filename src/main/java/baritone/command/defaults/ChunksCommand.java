@@ -45,7 +45,8 @@ public class ChunksCommand extends Command {
         int chunk2Z = args.get().getAs(int);
         if (Math.abs(chunk1X-chunk2X) >= Math.abs(chunk1Z-chunk2Z)){
             boolean XtoZ = true;
-            boolean up = 
+            int[][] closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});
+            boolean up = Math.abs(chunk1X)-Math.abs(chunk2X) > 0 ? true:false;
         }
         int[][] queue = new int[][];
         while (true){
@@ -68,8 +69,15 @@ public class ChunksCommand extends Command {
         return Stream.empty();
     }
     
-    private int coordsToChunk(int x, int z){
-        return 
+    private int[] closestCorner(int[][] chunks){
+        //wrong, use player coords not chunks
+        int[] chunk1 = new int[]{Math.abs(chunks[0][0])-Math.abs(chunks[1][0]), Math.abs(chunks[0][1])-Math.abs(chunks[1][1])}
+        int[] chunk2 = new int[]{Math.abs(chunks[1][0])-Math.abs(chunks[0][0]), Math.abs(chunks[1][1])-Math.abs(chunks[0][1])}
+        
+    }
+    
+    private int[] chunkToCoords(int x, int z){
+        return new int[]{x*16, z*16};
     }
 
     @Override
