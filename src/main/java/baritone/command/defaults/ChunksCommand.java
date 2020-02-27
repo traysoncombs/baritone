@@ -34,7 +34,7 @@ import java.lang.Math;
 public class ChunksCommand extends Command {
     private boolean XtoZ;
     private int[][] closest;
-    private int chunkCounter = 8;
+    private int change = 4;
     private boolean up;
     public ChunksCommand(IBaritone baritone) {
         super(baritone, "chunks");
@@ -60,9 +60,9 @@ public class ChunksCommand extends Command {
         baritone.getCustomGoalProcess().setGoalAndPath(new goalXZ(closest[0][0]*16, closest[0][1]*16));
         int[][] queue = new int[][];
         while (true){
-            
             if (XtoZ){
                 queue.add(new int[]{});
+                change = up ? (chunkX < 0 ? change - 8: change + 8 ) : (chunkX < 0 ? change + 8: change - 8);
             }
             else{
                 
