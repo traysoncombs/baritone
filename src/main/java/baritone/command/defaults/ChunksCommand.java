@@ -61,7 +61,7 @@ public class ChunksCommand extends Command {
         int[][] queue = new int[][];
         while (true){
             if (XtoZ){
-                queue.add(new int[]{});
+                queue.add(new int[]{chunkX, });
                 change = up ? (chunkX < 0 ? change - 8: change + 8 ) : (chunkX < 0 ? change + 8: change - 8);
             }
             else{
