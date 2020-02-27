@@ -27,6 +27,8 @@ import baritone.api.command.argument.IArgConsumer;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
+import java.lang.Math;
+
 
 public class TunnelCommand extends Command {
 
@@ -37,6 +39,15 @@ public class TunnelCommand extends Command {
     @Override
     public void execute(String label, IArgConsumer args) throws CommandException {
         args.requireMax(4);
+        int chunk1X = args.get().getAs(int);
+        int chunk1Z = args.get().getAs(int);
+        int chunk2X = args.get().getAs(int);
+        int chunk2Z = args.get().getAs(int);
+        if (Math.abs(chunk1X-chunk2X) >= Math.abs(chunk1Z-chunk2Z)){
+            
+        }
+        int[][] queue = new int[][];
+        
         Goal goal = new GoalStrictDirectionEnds(
                 ctx.playerFeet(),
                 ctx.player().getHorizontalFacing()
@@ -49,10 +60,14 @@ public class TunnelCommand extends Command {
     public Stream<String> tabComplete(String label, IArgConsumer args) {
         return Stream.empty();
     }
+    
+    private int coordsToChunk(int x, int z){
+        return 
+    }
 
     @Override
     public String getShortDesc() {
-        return "Explore chunks between two cornwer chunks.";
+        return "Explore chunks between two corner chunks.";
     }
 
     @Override
@@ -64,4 +79,18 @@ public class TunnelCommand extends Command {
                 "> chunks [x coord for first chunk] [z coord for first chunk] [x coord for second chunk] [z coord for second chunk]"
         );
     }
+}
+
+public class chunk{
+    public int x;
+    public int z;
+    public int xCoord;
+    public int zCoord;
+    public chunk(int x, int z){
+        this.xCoord = x;
+        this.zCoord = z;
+        this.x = Math.floor(x/16);
+        this.z = Math.floor(z/16);
+    }
+    
 }
