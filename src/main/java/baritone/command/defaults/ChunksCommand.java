@@ -30,9 +30,9 @@ import java.util.stream.Stream;
 import java.lang.Math;
 
 
-public class TunnelCommand extends Command {
+public class ChunksCommand extends Command {
 
-    public TunnelCommand(IBaritone baritone) {
+    public ChunksCommand(IBaritone baritone) {
         super(baritone, "chunks");
     }
 
@@ -44,9 +44,15 @@ public class TunnelCommand extends Command {
         int chunk2X = args.get().getAs(int);
         int chunk2Z = args.get().getAs(int);
         if (Math.abs(chunk1X-chunk2X) >= Math.abs(chunk1Z-chunk2Z)){
-            
+            boolean XtoZ = true;
         }
         int[][] queue = new int[][];
+        while (true){
+            if (XtoZ){
+                
+                queue.add(new int[]{});
+            }
+        }
         
         Goal goal = new GoalStrictDirectionEnds(
                 ctx.playerFeet(),
