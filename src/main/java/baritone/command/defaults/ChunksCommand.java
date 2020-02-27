@@ -19,6 +19,7 @@ package baritone.command.defaults;
 
 import baritone.api.IBaritone;
 import baritone.api.pathing.goals.Goal;
+import baritone.api.pathing.goals.GoalXZ;
 import baritone.api.pathing.goals.GoalStrictDirectionEnds;
 import baritone.api.command.Command;
 import baritone.api.command.exception.CommandException;
@@ -31,7 +32,10 @@ import java.lang.Math;
 
 
 public class ChunksCommand extends Command {
-
+    private boolean XtoZ;
+    private int[][] closest;
+    private int chunkCounter = 8;
+    private boolean up;
     public ChunksCommand(IBaritone baritone) {
         super(baritone, "chunks");
     }
@@ -44,15 +48,24 @@ public class ChunksCommand extends Command {
         int chunk2X = args.get().getAs(int);
         int chunk2Z = args.get().getAs(int);
         if (Math.abs(chunk1X-chunk2X) >= Math.abs(chunk1Z-chunk2Z)){
-            boolean XtoZ = true;
-            int[][] closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});
-            boolean up = Math.abs(chunk1X)-Math.abs(chunk2X) > 0 ? true:false;
+            XtoZ = true;
+            closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});
+            up = Math.abs(closest[0][0]) < Math.abs(closest[1][0]) ? true:false;
         }
+        else{
+            XtoZ = false;
+            closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});
+            up = Math.abs(closest[0][1]) < Math.abs(closest[1][1]) ? true:false;
+        }
+        baritone.getCustomGoalProcess().setGoalAndPath(new goalXZ(closest[0][0]*16, closest[0][1]*16));
         int[][] queue = new int[][];
         while (true){
+            
             if (XtoZ){
-                
                 queue.add(new int[]{});
+            }
+            else{
+                
             }
         }
         
@@ -69,10 +82,19 @@ public class ChunksCommand extends Command {
         return Stream.empty();
     }
     
-    private int[] closestCorner(int[][] chunks){
-        //wrong, use player coords not chunks
-        int[] chunk1 = new int[]{Math.abs(chunks[0][0])-Math.abs(chunks[1][0]), Math.abs(chunks[0][1])-Math.abs(chunks[1][1])}
-        int[] chunk2 = new int[]{Math.abs(chunks[1][0])-Math.abs(chunks[0][0]), Math.abs(chunks[1][1])-Math.abs(chunks[0][1])}
+    private int[][] closestCorner(int[][] chunks){ // returns the closest chunk as first array in array
+        //probably wont work
+        
+        int chunk1 = Math.abs(chunks[0][0])-Math.abs(ctx.player().posX)+ Math.abs(chunks[0][1])-Math.abs(ctx.player().posZ)
+        int chunk2 = Math.abs(chunks[1][0])-Math.abs(ctx.player().posX)+ Math.abs(chunks[1][1])-Math.abs(ctx.player().posZ)
+        int[][] closestFirst = new int[][];
+        if (chunk1 < chunk2){
+            closestFirst[0] = chunks[0];
+        }
+        else{
+            closestFirst[1] = chunks[0];
+        }
+        return closestFirst;
         
     }
     
