@@ -45,6 +45,7 @@ public class ChunksCommand extends Command {
         int chunk2Z = args.get().getAs(int);
         if (Math.abs(chunk1X-chunk2X) >= Math.abs(chunk1Z-chunk2Z)){
             boolean XtoZ = true;
+            boolean up = 
         }
         int[][] queue = new int[][];
         while (true){
