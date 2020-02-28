@@ -77,7 +77,7 @@ public class ChunksCommand extends Command {
                     smallerXDirection *= -1;  // used to check which direction to go
                 }
                 else{  // runs as we go along shorter axis, Z
-                    
+                    tmpChunkX = tmpChunkX < 0 ?  :  ;
                 }
                 queue.add(new int[]{tmpChunkX, chunkZ+change, });  // need to add direction
                 change = up ? (chunkZ < 0 ? change - 8 : change + 8 ) : (chunkZ < 0 ? change + 8 : change - 8);
@@ -116,6 +116,14 @@ public class ChunksCommand extends Command {
         return closestFirst;
         
     }
+    
+    private int increaseCoord(int coord, int increase) {
+        return coord < 0 ? coord - increase : coord + increase;
+    }
+    private int decreaseCoord(int coord, int decrease) {
+        return coord < 0 ? coord + decrease : coord - decrease;
+    }
+    
     
     private int[] chunkToCoords(int x, int z){
         return new int[]{x*16, z*16};
