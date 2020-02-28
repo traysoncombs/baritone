@@ -36,6 +36,8 @@ public class ChunksCommand extends Command {
     private int[][] closest;
     private int change = 4;
     private boolean up;
+    private int counter;
+    private boolean 
     public ChunksCommand(IBaritone baritone) {
         super(baritone, "chunks");
     }
@@ -48,25 +50,36 @@ public class ChunksCommand extends Command {
         int chunk2X = args.get().getAs(int);
         int chunk2Z = args.get().getAs(int);
         if (Math.abs(chunk1X-chunk2X) >= Math.abs(chunk1Z-chunk2Z)){
-            XtoZ = true;
-            closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});
-            up = Math.abs(closest[0][0]) < Math.abs(closest[1][0]) ? true:false;
+            XtoZ = true;  // used to determine whether to go most of the way along x or z
+            closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});  // finds chunk nearest player
+            boolean LargerZDirection = Math.abs(closest[0][1]) < Math.abs(closest[1][1]) ? true:false;  // determines whether to go up along z axis or down
+            boolean smallerXDirection = Math.abs(closest[0][0] > closest[1][0]) ? true : false;  // determine whether to go in the negative x direction
         }
         else{
             XtoZ = false;
             closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});
-            up = Math.abs(closest[0][1]) < Math.abs(closest[1][1]) ? true:false;
+            boolean largerXDirecition = Math.abs(closest[0][0]) < Math.abs(closest[1][0]) ? true:false;  // determines whether to go up along x axis or down
+            boolean smallerZDirection = Math.abs(closest[0][1] > closest[1][1]) ? true : false;  // determines
         }
         baritone.getCustomGoalProcess().setGoalAndPath(new goalXZ(closest[0][0]*16, closest[0][1]*16));
         int[][] queue = new int[][];
+        change = up ? (chunkZ < 0 ? -4 : 4 ) : (chunkZ < 0 ? 4 : -4);
         while (true){
+            
             if (XtoZ){
-                queue.add(new int[]{chunkX, });
-                change = up ? (chunkX < 0 ? change - 8: change + 8 ) : (chunkX < 0 ? change + 8: change - 8);
+                if (counter % 2 == 0){
+                    
+                }
+                else{
+                    
+                }
+                queue.add(new int[]{tmpChunkX, chunkZ+change});
+                change = up ? (chunkZ < 0 ? change - 8 : change + 8 ) : (chunkZ < 0 ? change + 8 : change - 8);
             }
             else{
                 
             }
+            counter++;
         }
         
         Goal goal = new GoalStrictDirectionEnds(
