@@ -36,8 +36,8 @@ public class ChunksCommand extends Command {
     private int[][] closest;
     private int change = 4;
     private boolean up;
-    private int counter;
-    private boolean 
+    private int counter = 2;
+    private int countTest = 1;
     public ChunksCommand(IBaritone baritone) {
         super(baritone, "chunks");
     }
@@ -53,7 +53,7 @@ public class ChunksCommand extends Command {
             XtoZ = true;  // used to determine whether to go most of the way along x or z
             closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});  // finds chunk nearest player
             boolean LargerZDirection = Math.abs(closest[0][1]) < Math.abs(closest[1][1]) ? true:false;  // determines whether to go up along z axis or down
-            boolean smallerXDirection = Math.abs(closest[0][0] > closest[1][0]) ? true : false;  // determine whether to go in the negative x direction
+            boolean smallerXDirection = Math.abs(closest[0][0] > closest[1][0]) ? 1 : -1;  // determine whether to go in the negative x direction
         }
         else{
             XtoZ = false;
@@ -63,17 +63,23 @@ public class ChunksCommand extends Command {
         }
         baritone.getCustomGoalProcess().setGoalAndPath(new goalXZ(closest[0][0]*16, closest[0][1]*16));
         int[][] queue = new int[][];
-        change = up ? (chunkZ < 0 ? -4 : 4 ) : (chunkZ < 0 ? 4 : -4);
+        
         while (true){
             
             if (XtoZ){
-                if (counter % 2 == 0){
+                if (counter == 2) {  // runs on first run
+                    change = largerZDirection ? (chunkZ < 0 ? -4 : 4 ) : (chunkZ < 0 ? 4 : -4);
+                }
+                if(counter % 2 == 0){  // this should happen each time we go along longer axis, X. This might be redundant idk
+                    
+                    // I am an autist, all i need to do is add/sub four to/from the closest and furthest chunk and switch between the two
+                    tmpChunkX = smallerXDirection > 0 ? ( chunkX < 0 ? closest[0][0]+4 : closest[0][0]-4) : (chunkX < 0 ? closest[0][0]-4 : closest[0][0]+4));
+                    smallerXDirection *= -1;  // used to check which direction to go
+                }
+                else{  // runs as we go along shorter axis, Z
                     
                 }
-                else{
-                    
-                }
-                queue.add(new int[]{tmpChunkX, chunkZ+change});
+                queue.add(new int[]{tmpChunkX, chunkZ+change, });  // need to add direction
                 change = up ? (chunkZ < 0 ? change - 8 : change + 8 ) : (chunkZ < 0 ? change + 8 : change - 8);
             }
             else{
