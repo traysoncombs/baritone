@@ -58,7 +58,7 @@ public class ChunksCommand extends Command {
         else{
             XtoZ = false;
             closest = closestChunk(new int[][]{new int[]{chunk1X, chunk1Z}, new int[]{chunk2X, chunk2Z}});
-            boolean largerXDirecition = Math.abs(closest[0][0]) < Math.abs(closest[1][0]) ? true:false;  // determines whether to go up along x axis or down
+            boolean largerXDirection = Math.abs(closest[0][0]) < Math.abs(closest[1][0]) ? true:false;  // determines whether to go up along x axis or down
             boolean smallerZDirection = Math.abs(closest[0][1] > closest[1][1]) ? true : false;  // determines
         }
         baritone.getCustomGoalProcess().setGoalAndPath(new goalXZ(closest[0][0]*16, closest[0][1]*16));
@@ -73,14 +73,14 @@ public class ChunksCommand extends Command {
                 if(counter % 2 == 0){  // this should happen each time we go along longer axis, X. This might be redundant idk
                     
                     // I am an autist, all i need to do is add/sub four to/from the closest and furthest chunk and switch between the two
-                    tmpChunkX = smallerXDirection > 0 ? ( chunkX < 0 ? closest[0][0]+4 : closest[0][0]-4) : (chunkX < 0 ? closest[0][0]-4 : closest[0][0]+4));
+                    tmpChunkX = smallerXDirection > 0 ? decreaseCoords(closest[0][0], 4) : increaseCoords(closest[0][0], 4);
                     smallerXDirection *= -1;  // used to check which direction to go
                 }
                 else{  // runs as we go along shorter axis, Z
-                    tmpChunkX = tmpChunkX < 0 ?  :  ;
+                    tmpChunkX = 
                 }
                 queue.add(new int[]{tmpChunkX, chunkZ+change, });  // need to add direction
-                change = up ? (chunkZ < 0 ? change - 8 : change + 8 ) : (chunkZ < 0 ? change + 8 : change - 8);
+                change = largerZDirection ? increaseCoord(change, 8) : decreaseCoord(change, 8);
             }
             else{
                 
