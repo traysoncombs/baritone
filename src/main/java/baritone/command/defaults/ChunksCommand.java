@@ -63,12 +63,16 @@ public class ChunksCommand extends Command {
         }
         baritone.getCustomGoalProcess().setGoalAndPath(new goalXZ(closest[0][0]*16, closest[0][1]*16));
         int[][] queue = new int[][];
-        
+        int chunkZ = closest[1][1];
+        int chunkX = closest[1][0];
+        int tmpChunkX = chunkX;
+        int tmpChunkX = chunkZ;
         while (true){
             
             if (XtoZ){
+                int yaw;
                 if (counter == 2) {  // runs on first run
-                    change = largerZDirection ? (chunkZ < 0 ? -4 : 4 ) : (chunkZ < 0 ? 4 : -4);
+                    change = largerZDirection ? increaseCoord(chunkZ, 4) : decreaseCoord(chunkZ, 4);  // determine whether to go positive or negative z direction
                 }
                 if(counter % 2 == 0){  // this should happen each time we go along longer axis, X. This might be redundant idk
                     
@@ -84,7 +88,7 @@ public class ChunksCommand extends Command {
             }
             else{
                 if (counter == 2) {  // runs on first run
-                    change = largerXDirection ? (chunkX < 0 ? -4 : 4 ) : (chunkX < 0 ? 4 : -4);
+                    change = largerXDirection ? increaseCoord(chunkX, 4) : decreaseCoord(chunkX, 4);
                 }
                 if(counter % 2 == 0){  // this should happen each time we go along longer axis, X. This might be redundant idk
                     
@@ -158,16 +162,3 @@ public class ChunksCommand extends Command {
     }
 }
 
-public class chunk{
-    public int x;
-    public int z;
-    public int xCoord;
-    public int zCoord;
-    public chunk(int x, int z){
-        this.xCoord = x;
-        this.zCoord = z;
-        this.x = Math.floor(x/16);
-        this.z = Math.floor(z/16);
-    }
-    
-}
