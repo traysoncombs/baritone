@@ -83,7 +83,20 @@ public class ChunksCommand extends Command {
                 change = largerZDirection ? increaseCoord(change, 8) : decreaseCoord(change, 8);
             }
             else{
-                
+                if (counter == 2) {  // runs on first run
+                    change = largerZDirection ? (chunkZ < 0 ? -4 : 4 ) : (chunkZ < 0 ? 4 : -4);
+                }
+                if(counter % 2 == 0){  // this should happen each time we go along longer axis, X. This might be redundant idk
+                    
+                    // I am an autist, all i need to do is add/sub four to/from the closest and furthest chunk and switch between the two
+                    tmpChunkX = smallerXDirection > 0 ? decreaseCoords(closest[0][0], 4) : increaseCoords(closest[0][0], 4);
+                    smallerXDirection *= -1;  // used to check which direction to go
+                }
+                else{  // runs as we go along shorter axis, Z
+                    tmpChunkX = largerZDirection ? increaseCoord(tmpChunkX, 8) : decreaseCoord(tmpChunkX, 8);
+                }
+                queue.add(new int[]{tmpChunkX, chunkZ+change, });  // need to add direction
+                change = largerZDirection ? increaseCoord(change, 8) : decreaseCoord(change, 8);
             }
             counter++;
         }
@@ -104,8 +117,8 @@ public class ChunksCommand extends Command {
     private int[][] closestCorner(int[][] chunks){ // returns the closest chunk as first array in array
         //probably wont work
         
-        int chunk1 = Math.abs(chunks[0][0])-Math.abs(ctx.player().posX)+ Math.abs(chunks[0][1])-Math.abs(ctx.player().posZ)
-        int chunk2 = Math.abs(chunks[1][0])-Math.abs(ctx.player().posX)+ Math.abs(chunks[1][1])-Math.abs(ctx.player().posZ)
+        int chunk1 = Math.abs(chunks[0][0])-Math.abs(ctx.player().posX)+ Math.abs(chunks[0][1])-Math.abs(ctx.player().posZ);
+        int chunk2 = Math.abs(chunks[1][0])-Math.abs(ctx.player().posX)+ Math.abs(chunks[1][1])-Math.abs(ctx.player().posZ);
         int[][] closestFirst = new int[][];
         if (chunk1 < chunk2){
             closestFirst[0] = chunks[0];
