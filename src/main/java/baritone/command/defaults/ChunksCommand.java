@@ -84,18 +84,18 @@ public class ChunksCommand extends Command {
             }
             else{
                 if (counter == 2) {  // runs on first run
-                    change = largerZDirection ? (chunkZ < 0 ? -4 : 4 ) : (chunkZ < 0 ? 4 : -4);
+                    change = largerXDirection ? (chunkX < 0 ? -4 : 4 ) : (chunkX < 0 ? 4 : -4);
                 }
                 if(counter % 2 == 0){  // this should happen each time we go along longer axis, X. This might be redundant idk
                     
                     // I am an autist, all i need to do is add/sub four to/from the closest and furthest chunk and switch between the two
-                    tmpChunkX = smallerXDirection > 0 ? decreaseCoords(closest[0][0], 4) : increaseCoords(closest[0][0], 4);
-                    smallerXDirection *= -1;  // used to check which direction to go
+                    tmpChunkZ = smallerZDirection > 0 ? decreaseCoords(closest[0][0], 4) : increaseCoords(closest[0][0], 4);
+                    smallerZDirection *= -1;  // used to check which direction to go
                 }
                 else{  // runs as we go along shorter axis, Z
-                    tmpChunkX = largerZDirection ? increaseCoord(tmpChunkX, 8) : decreaseCoord(tmpChunkX, 8);
+                    tmpChunkZ = largerXDirection ? increaseCoord(tmpChunkZ, 8) : decreaseCoord(tmpChunkZ, 8);
                 }
-                queue.add(new int[]{tmpChunkX, chunkZ+change, });  // need to add direction
+                queue.add(new int[]{chunkX+change, tmpChunkZ, });  // need to add direction
                 change = largerZDirection ? increaseCoord(change, 8) : decreaseCoord(change, 8);
             }
             counter++;
